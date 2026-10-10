@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zener Card Test</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>Zener Card Test <span class="app-version" data-app-version></span></h1>
+    <p class="subtitle">Guess all 25 cards blind — nothing is revealed until the deck is done. Classic ESP deck: circle, cross, waves, square, star.</p>
+  </header>
+
+  <main>
+    <section class="test-panel" aria-label="Card test">
+      <div id="playArea">
+        <div class="deck-status">
+          Card <span id="cardNum">1</span> of <span id="deckSize">25</span>
+        </div>
+
+        <div class="card-stage">
+          <div id="card" class="card">
+            <div class="card-face card-back">
+              <div class="card-back-pattern"></div>
+            </div>
+          </div>
+          <div class="progress-hint">No feedback until all 25 cards are guessed.</div>
+        </div>
+
+        <div id="guessRow" class="guess-row" role="group" aria-label="Guess a symbol">
+          <!-- guess buttons injected by JS -->
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="newDeckBtn" class="btn btn-secondary">New Deck</button>
+      </div>
+
+      <div id="runSummary" class="run-summary hidden" aria-live="polite">
+        <h2>Run complete</h2>
+        <p id="summaryText"></p>
+        <p class="breakdown-legend">Each cell: your guess (faded) &rarr; the actual card.</p>
+        <div id="breakdownGrid" class="breakdown-grid"></div>
+        <button id="startAgainBtn" class="btn btn-primary">Start New Deck</button>
+      </div>
+    </section>
+
+    <section class="stats-panel" aria-label="Statistics">
+      <h2>Stats &amp; History</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="statRuns">0</div>
+          <div class="stat-label">Runs completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statTrials">0</div>
+          <div class="stat-label">Total guesses</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statAccuracy">&mdash;</div>
+          <div class="stat-label">Overall accuracy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">20.0%</div>
+          <div class="stat-label">Expected by chance</div>
+        </div>
+      </div>
+
+      <div class="chart-wrap">
+        <svg id="chart" viewBox="0 0 400 160" preserveAspectRatio="none" role="img" aria-label="Accuracy per run"></svg>
+        <div class="chart-empty" id="chartEmpty">No runs yet &mdash; complete a deck to see your history.</div>
+      </div>
+
+      <div class="history-list-wrap">
+        <table class="history-table">
+          <thead>
+            <tr><th>Date</th><th>Score</th><th>Accuracy</th></tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+
+      <button id="clearHistoryBtn" class="btn btn-ghost">Clear history</button>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>This is a self-test: you generate and view your own shuffled deck, so it is not a blinded scientific protocol. Traditional ESP research requires a separate sender who cannot be seen or otherwise sensed by the guesser. Treat results here as a game, not evidence.</p>
+    <p class="footer-version">Zener Card Test <span data-app-version></span></p>
+  </footer>
+
+<script src="version.js"></script>
+<script src="update-banner.js"></script>
+<script>
+  document.querySelectorAll('[data-app-version]').forEach(function (el) { el.textContent = 'v' + window.APP_VERSION; });
+</script>
+<script src="app.js"></script>
+</body>
+</html>
